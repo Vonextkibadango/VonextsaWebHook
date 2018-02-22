@@ -27,8 +27,8 @@ app.get('/', function(req, res) {
 
 app.get(['/facebook', '/instagram'], function(req, res) {   
   if (
-    req.param('hub.mode') == 'subscribe' &&
-    req.param('hub.verify_token') == token
+    req.param('hub.mode') === 'subscribe' &&
+    req.param('hub.verify_token') === token
   ) {
     res.send(req.param('hub.challenge'));
   } else {
@@ -41,6 +41,7 @@ app.post('/facebook', function(req, res) {
 
   if (!req.isXHubValid()) {
     console.log('Warning - request header X-Hub-Signature not present or invalid');
+ 
     res.sendStatus(401);
     return;
   }
@@ -48,6 +49,7 @@ app.post('/facebook', function(req, res) {
   console.log('request header X-Hub-Signature validated');
   // Process the Facebook updates here
   received_updates.unshift(req.body);
+  res.json(received_updates);
   res.sendStatus(200);
 });
 
