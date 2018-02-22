@@ -49,7 +49,7 @@ app.post('/facebook', function(req, res) {
   console.log('request header X-Hub-Signature validated');
   // Process the Facebook updates here
   received_updates.unshift(req.body);
-  res.json(received_updates);
+  console.log(received_updates);
   res.sendStatus(200);
 });
 
